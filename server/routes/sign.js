@@ -3,19 +3,19 @@ const access   = require('../middlewares/access');
 const { User } = require('../db/models');
 const bcrypt   = require('bcrypt');
 
-const Signin = require('../views/Sign/Signin');
-const Signup = require('../views/Sign/Signup');
-
 router.route('/out')
   .get(access('user'), async (req, res) => {
     req.session.destroy();
     res.clearCookie(process.env.SESSION_COOKIE);
-    res.redirect('/');
+
+    res.status(200).json({ message: 'Session destroyed!' });
   });
 
 router.route('/in')
   .get(access('guest'), (req, res) => {
-    res.renderComponent(Signin);
+
+    // Отдать данные?
+
   })
   .post(access('guest'), async (req, res) => {
     try {
@@ -23,18 +23,18 @@ router.route('/in')
       const user = await User.isExists(email);
 
       if(!user) {
-        res.redirect('/sign/up');
+        res.status(404).json({ message: 'User not found!' });
         return;
       }
 
       if(! await bcrypt.compare(password, user.password)){
-        res.redirect('/sign/in');
+        res.status(401).json({ message: 'Incorrect password!' });
         return;
       }
 
       req.session.userId = user.id;
 
-      res.redirect('/profile');
+      res.status(200).json({ message: 'Authorized!' });
     } catch(error){
       res.status(500).json(error);
     }
@@ -43,7 +43,9 @@ router.route('/in')
 router.route('/up')
 
   .get(access('guest'), (req, res) => {
-    res.renderComponent(Signup);
+
+    // Отдать данные?
+
   })
 
   .post(access('guest'), async (req, res) => {
@@ -51,12 +53,12 @@ router.route('/up')
     const { email, name, password }  = req.body;
 
     if (!password[0] || password[0] !== password[1]) {
-      res.redirect('/sign/up');
+      res.status(401).json({ message: 'Incorrect password!' });
       return;
     }
 
     if(await User.isExists(email)){
-      res.redirect('/sign/up');
+      res.status(409).json({ message: 'User exists!' });
       return;
     }
 
@@ -65,7 +67,7 @@ router.route('/up')
     await user.save();
     req.session.userId = user.id;
 
-    res.redirect('/profile');
+    res.status(200).json({ message: 'Registered!' });
   } catch (error) {
     res.status(500).json(error);
   }

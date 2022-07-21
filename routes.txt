@@ -1,0 +1,16 @@
+> Авторизация
+?
+GET  http://localhost/sign/in
+
+Принятие данных для авторизации {email, password}
+POST  http://localhost/sign/in
+
+Завершение сессии на сервере, удаление cookie
+GET   http://localhost/sign/out
+
+> Регистрация
+?
+GET  http://localhost/sign/up
+
+Принятие данных для регистрации {email, name, password[0], password[1]}
+POST  http://localhost/sign/up
