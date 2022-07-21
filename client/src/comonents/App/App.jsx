@@ -1,18 +1,19 @@
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import './App.css';
 
 import Game from '../Game/Game';
 
 import NavBar from '../NavBar/NavBar';
+import Home from '../Home/Home';
 
 
 function App() {
   return (
     <BrowserRouter>
-    <NavBar />
+    {/* <NavBar /> */}
     <Routes>
-
+    <Route path="/home" element={<Home />} />
       
 
     <Route path="/game" element={<Game />} />
