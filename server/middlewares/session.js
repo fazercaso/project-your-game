@@ -21,7 +21,7 @@ module.exports = (app) => {
   app.use((req, res, next) => {
     if (req.cookies[process.env.SESSION_COOKIE] && !req.session.userId) {
       res.clearCookie(process.env.SESSION_COOKIE);
-      res.redirect('/');
+      res.status(410).json({ message: 'Session not found! Cookies destroyed!' });
     } else {
       next();
     }

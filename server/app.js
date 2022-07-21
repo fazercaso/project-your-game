@@ -5,6 +5,10 @@ const app = express();
 app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(require('cors')({
+  origin: ['http://localhost:3000'],
+  credentials: true,
+}));
 
 // Static content: web-client path AS virtual, server path
 app.use(express.static(path.resolve('public')));
