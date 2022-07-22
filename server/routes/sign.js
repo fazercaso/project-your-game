@@ -13,9 +13,29 @@ router.route('/out')
 
 router.route('/in')
   .get(access('guest'), (req, res) => {
+    if (req.session.userId && res.locals.user) {
 
-    // Отдать данные?
+      const {
+        id,
+        email,
+        name,
+        createdAt,
+        updatedAt,
+      } = res.locals.user;
 
+      res.status(200).json({
+        user: {
+          id,
+          email,
+          name,
+          createdAt,
+          updatedAt,
+        }
+      });
+
+    } else {
+      res.status(404).json({ message: 'Session not found!' });
+    }
   })
   .post(access('guest'), async (req, res) => {
     try {

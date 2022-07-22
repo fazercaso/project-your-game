@@ -9,7 +9,8 @@ import Question from '../Question/Question';
 import NavBar from '../NavBar/NavBar';
 import Home from '../Home/Home';
 
-
+import Signup from '../Signup/Signup';
+import Signin from '../Signin/Signin';
 
 function App() {
   return (
@@ -18,7 +19,9 @@ function App() {
     <Routes>
 
 
-      
+    <Route path="/signin" element={<Signin />} />
+    <Route path="/signup" element={<Signup />} />
+
     <Route path="/game" element={<Game />} />
     <Route path="/game/question/:id" element={<Question />} />
     <Route path="/home" element={<Home />} />

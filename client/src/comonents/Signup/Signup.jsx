@@ -1,20 +1,45 @@
-/* eslint-disable react/no-array-index-key */
-const React = require('react');
-const Layout = require('../Layout');
+import React from "react";
+import { Input, Button } from "@geist-ui/core";
 
-module.exports = function Signup({ errors }) {
+export default function Signup() {
   // const PAGE_TITLE   = 'Регистрация';
-  // const BUTTON_TITLE = 'Зарегистрироваться';
-  // const FORM_ACTION  = 'http://localhost:4000/sign/up';
-  // const FORM_METHOD  = 'POST';
+  const BUTTON_TITLE = 'Зарегистрироваться';
+  const FORM_ACTION  = 'http://localhost:4000/sign/up';
+  const FORM_METHOD  = 'POST';
+
+  const sendFormData = (event) => {
+    event.preventDefault();
+
+    const body = {
+      email: event.target.email.value,
+      name: event.target.name.value,
+      password: [
+        event.target.password.value,
+        event.target.password_confirm.value,
+      ],
+    };
+
+    fetch(FORM_ACTION, {
+      method: FORM_METHOD,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify(body)
+    }).then(
+      response => response.json()
+    ).then(
+      data => console.log(data)
+    );
+  };
 
   return (
     <form onSubmit={sendFormData}>
-      <Input name="email" type="text" label="E-mail" placeholder="E-mail" />
-      <Input name="name"  type="text" label="Name"   placeholder="Name" />
-      <Input name="password[0]" type="password" label="Password" placeholder="Password" />
-      <Input name="password[1]" type="password" label="Confirm"  placeholder="Confirm" />
-      <Button auto type="submit" scale={1/3}>{BUTTON_TITLE}</Button>
+      <Input name="email" htmlType="text" label="E-mail" placeholder="E-mail" />
+      <Input name="name"  htmlType="text" label="Name"   placeholder="Name" />
+      <Input name="password" htmlType="password" label="Password" placeholder="Password" />
+      <Input name="password_confirm" htmlType="password" label="Confirm password"  placeholder="Confirm password" />
+      <Button auto htmlType="submit" scale={1/3}>{BUTTON_TITLE}</Button>
     </form>
   );
 };
