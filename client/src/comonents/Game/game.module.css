@@ -1,0 +1,11 @@
+.select{
+  /* color: black;
+  background-color: bisque; */
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+/* .passiv {
+  disabled: false
+  {tem.stat && disabled}
+} */
