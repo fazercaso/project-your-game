@@ -96,10 +96,10 @@ function Question() {
                 {start ? 
                 (points ? <> 
                 <Text scale={1.25} mb={0} style={{ color: '#289453'}} blockquote b>Правильный ответ</Text>
-                <Button  onClick={()=> navigate(-1)} htmlType="submit" scale={0.85} type="warning" ghost >Следующий вопрос</Button>
+                <Button  onClick={()=> navigate(-1)} htmlType="button" scale={0.85} type="warning" ghost >Следующий вопрос</Button>
                 <Spacer h={0.8} />
                 </> : <>   <Text scale={1.25} mb={0} style={{ color: '#f50707'}} blockquote b>Не правильный ответ</Text>
-                <Button onClick={()=> navigate(-1)} htmlType="submit" scale={0.85} type="warning" ghost >Следующий вопрос</Button>
+                <Button onClick={()=> navigate(-1)} htmlType="button" scale={0.85} type="warning" ghost >Следующий вопрос</Button>
                 <Spacer h={0.8} /></>) : (<></>)}
             </form>
             </Text>

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, Grid, Button } from '@geist-ui/core'
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+    const navigate = useNavigate();
     return (
 
         <div className='game'>
@@ -13,7 +15,7 @@ function Home() {
                 <Text span style={{ color: '#ccc' }} font="40px">Ч</Text>
                 <Text span type="success" ml="20px" font="40px">ОК</Text>
             </Text>
-            <Grid><Button auto type="error">Играть</Button></Grid>
+            <Grid><Button  onClick={()=>navigate('/game')} auto type="error">Играть</Button></Grid>
         </div>
 
     );

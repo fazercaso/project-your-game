@@ -9,7 +9,7 @@ import scoreReduser from './scoreReduser'
 
 const rootReducer = combineReducers({
     game: gameReduser,
-    user: userReduser
+    user: userReduser,
     score: scoreReduser,
     button: buttonReduser
 })
