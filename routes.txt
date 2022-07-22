@@ -1,8 +1,9 @@
 > Авторизация
-Отправка данных сессии пользователя
+Отправка данных сессии авториованного пользователя { id, email, name, createdAt, updatedAt }
 GET  http://localhost/sign/in
 
-Принятие данных для авторизации {email, password}
+Принятие данных для авторизации {email, password} 
+и отправка данных авторизованного пользователя { id, email, name, createdAt, updatedAt }
 POST  http://localhost/sign/in
 
 Завершение сессии на сервере, удаление cookie
@@ -13,4 +14,5 @@ GET   http://localhost/sign/out
 GET  http://localhost/sign/up
 
 Принятие данных для регистрации {email, name, password[0], password[1]}
+и отправка данных зарегистрированного пользователя { id, email, name, createdAt, updatedAt }
 POST  http://localhost/sign/up

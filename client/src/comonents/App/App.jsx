@@ -11,6 +11,7 @@ import Home from '../Home/Home';
 
 import Signup from '../Signup/Signup';
 import Signin from '../Signin/Signin';
+import Profile from '../Profile/Profile';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
 
     <Route path="/signin" element={<Signin />} />
     <Route path="/signup" element={<Signup />} />
+    <Route path="/profile" element={<Profile />} />
 
     <Route path="/game" element={<Game />} />
     <Route path="/game/question/:id" element={<Question />} />

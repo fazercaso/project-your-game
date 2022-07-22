@@ -1,7 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Input, Button } from "@geist-ui/core";
 
+import { setUserAC } from '../../redux/actionCreators/userAC';
+
 export default function Signup() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   // const PAGE_TITLE   = 'Регистрация';
   const BUTTON_TITLE = 'Зарегистрироваться';
   const FORM_ACTION  = 'http://localhost:4000/sign/up';
@@ -29,8 +35,10 @@ export default function Signup() {
     }).then(
       response => response.json()
     ).then(
-      data => console.log(data)
+      data => dispatch(setUserAC(data))
     );
+
+    navigate('/profile');
   };
 
   return (

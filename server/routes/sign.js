@@ -3,6 +3,18 @@ const access   = require('../middlewares/access');
 const { User } = require('../db/models');
 const bcrypt   = require('bcrypt');
 
+function clientUser(data) {
+  return {
+    user: {
+      id: data.id,
+      email: data.email,
+      name: data.name,
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt,
+    }
+  };
+}
+
 router.route('/out')
   .get(access('user'), async (req, res) => {
     req.session.destroy();
@@ -12,26 +24,12 @@ router.route('/out')
   });
 
 router.route('/in')
-  .get(access('guest'), (req, res) => {
+  .get(access('user'), (req, res) => {
     if (req.session.userId && res.locals.user) {
 
-      const {
-        id,
-        email,
-        name,
-        createdAt,
-        updatedAt,
-      } = res.locals.user;
-
-      res.status(200).json({
-        user: {
-          id,
-          email,
-          name,
-          createdAt,
-          updatedAt,
-        }
-      });
+      res.status(200).json(
+        clientUser(res.locals.user)
+      );
 
     } else {
       res.status(404).json({ message: 'Session not found!' });
@@ -54,20 +52,16 @@ router.route('/in')
 
       req.session.userId = user.id;
 
-      res.status(200).json({ message: 'Authorized!' });
+      res.status(200).json(
+        clientUser(user)
+      );
+
     } catch(error){
       res.status(500).json(error);
     }
   });
 
 router.route('/up')
-
-  .get(access('guest'), (req, res) => {
-
-    // Отдать данные?
-
-  })
-
   .post(access('guest'), async (req, res) => {
   try {
     const { email, name, password }  = req.body;
@@ -87,7 +81,10 @@ router.route('/up')
     await user.save();
     req.session.userId = user.id;
 
-    res.status(200).json({ message: 'Registered!' });
+    res.status(200).json(
+      clientUser(user)
+    );
+
   } catch (error) {
     res.status(500).json(error);
   }
