@@ -5,3 +5,7 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+/* .passiv {
+  disabled: false
+  {tem.stat && disabled}
+} */

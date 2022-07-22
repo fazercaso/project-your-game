@@ -1,9 +1,9 @@
 import { GET_QUEST } from "../actionTypes/gameAT";
 
 
-export function getQuestionAC (data){
+export function getQuestionAC (answerPoint){
     return{
       type: GET_QUEST,
-      payload: data,
+      payload: answerPoint,
     }
   }

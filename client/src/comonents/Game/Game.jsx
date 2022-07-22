@@ -5,10 +5,15 @@ import { ButtonGroup, Button, Text } from '@geist-ui/core';
 import { useNavigate } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
 import style from './game.module.css'
+import { getButtonAC } from '../../redux/actionCreators/getButtonAC';
+import ButtonCard from '../Button/ButtonCard';
 
 function Game() {
     const {games} =useSelector((state)=> state.game);
-    // console.log(games);
+    const {scores} =useSelector((state)=> state.score);
+    // const {buttons} = useSelector((state)=> state.button)
+
+    console.log(games);
     // console.log(games);
     const navigate = useNavigate();
     const dispatch= useDispatch()
@@ -24,24 +29,22 @@ function Game() {
         //   .then(data => console.log(data));
           .then(data=>dispatch(getGameAC(data))); 
     }, [dispatch])
-    const question =(id) =>{
-        navigate(`/game/question/${id}`)
-    }
+  
     return (
-
+        <>
+         <h1> СЧЕТ {scores}</h1>
         <div className={style.select}>
             {games.map((el)=>(
                 <>
                 <ButtonGroup type="warning" ghost>
                 <Text b i style={{ letterSpacing: '0.6px', width : '200px' }} key={el.id}>{el.title}</Text>
                 {/* <h2 key={el.id}>{el.title}</h2> */}
-                {el.Questions.map((tem)=> 
-                <Button key={tem.id} onClick={()=> question(tem.id)}>{tem.question_point}</Button>)}
+                {el.Questions.map((tem)=> <ButtonCard key={tem.id} tem={tem}/>)}
                     </ButtonGroup>
                     </>
             ))}
-            
         </div>
+        </>
     );
 }
 
