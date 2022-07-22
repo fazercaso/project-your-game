@@ -1,12 +1,13 @@
 const tems = require('express').Router();
 const {Topic, Question } = require('../db/models');
+const game = require('../db/models/game');
 
 tems.get('/', async (req,res) =>{
     try {
         const findtems = await Topic.findAll({
             include: [{model:Question} ],
         });
-        console.log(findtems);
+        // console.log(findtems);
         res.json(findtems);  
     } catch (error) {
         console.log(error.message)
@@ -16,7 +17,7 @@ tems.get('/', async (req,res) =>{
 tems.post('/question', async (req, res)=>{
     try {
     const { id } = req.body;
-    console.log(id);
+    // console.log(id);
   const findQuestion = await Question.findOne({
     where: { id },
   });
@@ -27,6 +28,20 @@ tems.post('/question', async (req, res)=>{
     }
 })
 
+
+tems.post('/points', async (req, res)=> {
+    try {
+        // const { state, score, user_id } = req.body;
+        console.log(req.body);
+        // console.log(state);
+        // console.log(score);
+        // console.log(user_id);
+        
+
+    } catch (error) {
+        console.log(error.message)
+    }
+})
 // tems.post('/addlike/:key', async (req, res) => {
 //     const { user } = req.session;
 //     const findlike = await Like.findOne({

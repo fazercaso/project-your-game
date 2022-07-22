@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Spacer,Input, Button, Text } from '@geist-ui/core';
-import {  Meh } from '@geist-ui/icons';
+import {  Meh, SkipBack } from '@geist-ui/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getQuestionAC } from '../../redux/actionCreators/questionAC';
 
 function Question() {
     const {question} =useSelector((state)=> state.game);
+    const [start, setSart] = useState(false);
+    const [points, setPoints] = useState(true);
+
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch= useDispatch()
@@ -29,18 +32,52 @@ function Question() {
     }, [dispatch])
      
     const Chekansw = (e) => {
+        setSart(!start)
         e.preventDefault();
         console.log(e.target.answer.value);
         console.log(question.answer_text);
-        if (e.target.answer.value === question.answer_text ) 
-        // dispatch({
-        //   type: 'EDIT',
-        //   payload: {
-        //     id: findrest.id, url: e.target.url.value, title: e.target.title.value, description: e.target.description.value, address: e.target.address.value,
-        //   },
-        // });
-        navigate(-1);
-      };
+        // console.log(question.question_point);
+        // dispatch(getQuestionAC(answerPoint))
+        // let answerPoint =  points ? question.question_point : -question.question_point
+         if (e.target.answer.value === question.answer_text ){
+            setPoints(true);
+            let answerPoint = question.question_point
+            console.log(answerPoint);
+            console.log(points);
+            // dispatch(getQuestionAC(answerPoint))
+        } else {
+            setPoints(false);
+            let answerPoint = -question.question_point
+            console.log(answerPoint);
+            console.log(points);
+        }
+        // console.log(answerPoint);
+            // fetch('/game/points',{
+            //     method: 'POST',
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //       },
+            //       body: JSON.stringify({
+            //         state: points,
+            //         score : question.question_point,
+            //         user_id: 1 
+            //       }),
+            //     credentials: 'include',
+            //   })
+            //   .then(response =>response.json())
+            //   .then(data => console.log(data));
+            //   .then(data=>dispatch(getQuestionAC(data))); 
+    
+        }
+
+
+
+        // if (e.target.answer.value === question.answer_text ){
+        //     setSart(!start)
+        // } 
+
+        // setSart(!start)
+        // navigate(-1);
 
     // const findques = state.rest.find((rest) => rest.id === +id);
     // console.log(findques);
@@ -54,6 +91,14 @@ function Question() {
               <br/>
               <Button icon={< Meh />} htmlType="submit" scale={0.85} type="warning" ghost >Answer</Button>
                 <Spacer h={0.5} />
+                {start ? 
+                (points ? <> 
+                <Text scale={1.25} mb={0} type="secondary">Правильный ответ</Text>
+                <Button icon={< SkipBack />} htmlType="submit" scale={0.85} type="warning" ghost >Следующий вопрос</Button>
+                <Spacer h={0.8} />
+                </> : <>   <Text scale={1.25} mb={0} type="secondary">Не правильный ответ</Text>
+                <Button icon={< SkipBack />} htmlType="submit" scale={0.85} type="warning" ghost >Следующий вопрос</Button>
+                <Spacer h={0.8} /></>) : (<></>)}
             </form>
             </Text>
         </div>
