@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const app = express();
+// const tems = require('./routes/tems');
 app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -15,6 +16,7 @@ app.use(express.static(path.resolve('public')));
 
 require('./middlewares/session')(app);
 require('./middlewares/routes')(app);
+//app.use('/game', tems);
 
 const { sequelize } = require('./db/models');
 

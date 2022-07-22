@@ -6,7 +6,7 @@ function Gamepoint() {
     return (
         <div>
             <ButtonGroup type="warning" ghost>
-            <Button><Link to="/question/">{} </Link></Button>
+            <Button><Link to="game/question/">{} </Link></Button>
             </ButtonGroup>
         </div>
     );

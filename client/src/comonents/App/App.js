@@ -3,19 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import './App.css';
 
 import Game from '../Game/Game';
+import Question from '../Question/Question';
 
-import NavBar from '../NavBar/NavBar';
+// import NavBar from '../NavBar/NavBar';
 
 
 function App() {
   return (
     <BrowserRouter>
-    <NavBar />
+    {/* <NavBar /> */}
     <Routes>
 
       
 
     <Route path="/game" element={<Game />} />
+    <Route path="/game/question/:id" element={<Question />} />
 
     </Routes>
     </BrowserRouter>
