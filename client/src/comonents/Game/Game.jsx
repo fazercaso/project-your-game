@@ -30,6 +30,24 @@ function Game() {
           .then(data=>dispatch(getGameAC(data))); 
     }, [dispatch])
   
+    const gameDataSave = () => {
+      const body = {
+        score: scores,
+      };
+
+      fetch('/api/stats', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: 'include',
+        body: JSON.stringify(body)
+      })
+      .then(response => response.json())
+      .then(data => console.log(data));
+      // .then(data=>dispatch(getGameAC(data))); 
+    };
+
     return (
         <>
          <h1> СЧЕТ {scores}</h1>
@@ -44,6 +62,7 @@ function Game() {
                     </>
             ))}
         </div>
+        <Button onClick={gameDataSave} ghost>Save</Button>
         </>
     );
 }
