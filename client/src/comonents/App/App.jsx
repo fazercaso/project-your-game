@@ -34,7 +34,10 @@ function App() {
     <NavBar />
     <Routes>
 
-
+    <Route
+        path="*"
+        element={<Navigate to="/home" replace />}
+    />
     <Route path="/signin" element={<Signin />} />
     <Route path="/signup" element={<Signup />} />
     <Route path="/profile" element={<Profile />} />

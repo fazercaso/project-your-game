@@ -7,11 +7,11 @@ function NavBar() {
     const {user} = useSelector(state=> state.user)
     return (
         <div>
-        {user.id 
+        {user 
         ? 
         <>
             <ButtonGroup justify="center" type="warning" ghost>
-            <Button><Link to="/home">Игра</Link></Button>
+            <Button><Link to="/game">Игра</Link></Button>
             <Button><Link to="/profile">Профиль</Link></Button >
             <Button><Link to="/signout">Выйти</Link></Button >
             </ButtonGroup >
